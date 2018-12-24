@@ -10,6 +10,8 @@ opts.secretOrKey = keys.secretOrKey;
 
 // passport extract jwt from incoming request
 // and get jwt_payload from jwt
+// find user form db
+// add user to req obj as req.user
 module.exports = passport => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
