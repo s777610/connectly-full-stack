@@ -10,17 +10,8 @@ class Register extends Component {
     name: "",
     email: "",
     password: "",
-    password2: "",
-    errors: {}
+    password2: ""
   };
-
-  // if we get errors props from redux store, this will be called
-  // store errors into component state
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -38,7 +29,7 @@ class Register extends Component {
   };
 
   render() {
-    const { errors } = this.state; // same as const errors = this.state.errors;
+    const errors = this.props.errors;
 
     return (
       <div className="register">

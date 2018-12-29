@@ -7,20 +7,8 @@ import { loginUser } from "../../actions/authActions";
 class Login extends Component {
   state = {
     email: "",
-    password: "",
-    errors: {}
+    password: ""
   };
-
-  componentWillReceiveProps(nextProps) {
-    // After login, user will be redirect to "/dashboard"
-    // because we will get nextProps from redux store
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -32,11 +20,11 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(userData);
+    this.props.loginUser(userData, this.props.history);
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors } = this.props; // same as const errors = this.props.errors;
 
     return (
       <div className="login">
