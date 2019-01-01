@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
+import { createProfile } from "../../actions/profileActions";
 
 class CreateProfile extends Component {
   state = {
@@ -21,13 +23,16 @@ class CreateProfile extends Component {
     facebook: "",
     linkedin: "",
     youtube: "",
-    instagram: "",
-    errors: {}
+    instagram: ""
+    //errors: {}
   };
 
   onSubmit = event => {
     event.preventDefault();
-    console.log("Submit");
+    const profileData = {
+      ...this.state
+    };
+    this.props.createProfile(profileData, this.props.history);
   };
 
   onChange = event => {
@@ -35,7 +40,8 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { errors, dispalySocialInputs } = this.state;
+    const { dispalySocialInputs } = this.state;
+    const errors = this.props.errors;
 
     let socialInpus;
     if (dispalySocialInputs) {
@@ -182,6 +188,7 @@ class CreateProfile extends Component {
 
                 <div className="mb-3">
                   <button
+                    type="button"
                     onClick={() => {
                       this.setState(prevState => ({
                         dispalySocialInputs: !prevState.dispalySocialInputs
@@ -218,4 +225,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));
