@@ -5,6 +5,7 @@ import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addExperience } from "../../actions/profileActions";
+import { clearError } from "../../actions/clearErrorAction";
 
 class AddExperience extends Component {
   state = {
@@ -17,6 +18,10 @@ class AddExperience extends Component {
     description: "",
     disabled: false
   };
+
+  componentWillUnmount() {
+    this.props.clearError();
+  }
 
   onSubmit = event => {
     event.preventDefault();
@@ -142,5 +147,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addExperience }
+  { addExperience, clearError }
 )(withRouter(AddExperience));
