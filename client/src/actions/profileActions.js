@@ -1,4 +1,5 @@
 import axios from "axios";
+import { logoutUser } from "./authActions";
 
 import {
   GET_PROFILE,
@@ -37,6 +38,16 @@ export const createProfile = (profileData, history) => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+// Delete account & profile
+export const deleteAccount = () => dispatch => {
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    axios
+      .delete("/api/profile")
+      .then(res => dispatch(logoutUser()))
+      .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+  }
 };
 
 // Profile loading

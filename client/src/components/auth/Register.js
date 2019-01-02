@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
+import { clearError } from "../../actions/clearErrorAction";
 
 class Register extends Component {
   state = {
@@ -17,6 +18,10 @@ class Register extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearError();
   }
 
   onChange = event => {
@@ -94,6 +99,7 @@ class Register extends Component {
 Register.propType = {
   // registerUser id action creator but also a props
   registerUser: PropTypes.func.isRequired,
+  clearError: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -105,5 +111,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { registerUser, clearError }
 )(withRouter(Register));
