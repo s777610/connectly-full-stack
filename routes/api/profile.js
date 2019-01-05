@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
+const axios = require("axios");
+
+const keys = require("../../config/keys");
 
 // Load Validation
 const validateProfileInput = require("../../validation/profile");
@@ -282,5 +285,26 @@ router.delete(
     });
   }
 );
+
+// @route       GET api/profile/github/:username
+// @desc        Get github data from github api
+// @access      Public
+router.get("/github/:username", (req, res) => {
+  const username = req.params.username;
+  const clientId = keys.clientId;
+  const clientSecret = keys.clientSecret;
+  const count = 5;
+  const sort = "created: asc";
+  let repos;
+  axios
+    .get(
+      `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
+    )
+    .then(result => {
+      repos = result.data;
+      return res.json({ repos });
+    })
+    .catch(err => console.log(err));
+});
 
 module.exports = router;

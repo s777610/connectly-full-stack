@@ -12,8 +12,12 @@ import { getProfileByHandle } from "../../actions/profileActions";
 class Profile extends Component {
   componentDidMount() {
     const handle = this.props.match.params.handle;
-    if (handle) {
-      this.props.getProfileByHandle(handle);
+    handle && this.props.getProfileByHandle(handle);
+  }
+
+  componentDidUpdate() {
+    if (this.props.profile.profile === null && !this.props.profile.loading) {
+      this.props.history.push("/not-found");
     }
   }
 
@@ -24,8 +28,8 @@ class Profile extends Component {
       profileContent = <Spinner />;
     } else {
       profileContent = (
-        <div className="row">
-          <div className="col-md-6">
+        <div>
+          <div className="row">
             <div className="col-md-6">
               <Link to="/profiles" className="btn btn-light mb-3 float-left">
                 Back to Profiles
@@ -35,8 +39,13 @@ class Profile extends Component {
           </div>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
-          <ProfileCreds />
-          <ProfileGithub />
+          <ProfileCreds
+            education={profile.education}
+            experience={profile.experience}
+          />
+          {profile.githubusername ? (
+            <ProfileGithub username={profile.githubusername} />
+          ) : null}
         </div>
       );
     }
