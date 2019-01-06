@@ -101,14 +101,14 @@ router.post(
         }
         // add user id to likes array
         post.likes.unshift({ user: req.user.id });
-        post.save().then(post => res.json(post));
+        post.save().then(post => res.json(post)); // post is Post obj
       })
       .catch(err => res.status(404).json({ postnotfound: "No post found" }));
   }
 );
 
 // @route   POST api/posts/unlike/:id
-// @desc    Like post
+// @desc    UnLike post
 // @access  Private
 router.post(
   "/unlike/:id",
