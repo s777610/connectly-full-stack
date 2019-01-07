@@ -35,6 +35,7 @@ export default function(state = initialState, action) {
     case ADD_POST:
       return {
         ...state,
+        // action.payload is a post
         posts: [action.payload, ...state.posts]
       };
     case DELETE_POST:
