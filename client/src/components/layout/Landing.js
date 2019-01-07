@@ -30,6 +30,27 @@ class Landing extends Component {
                 <Link to="/login" className="btn btn-lg btn-light">
                   Login
                 </Link>
+                <p className="lead mt-4">This is my demo project</p>
+                <p className="lead mb-4">
+                  Feel free to check my{" "}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://github.com/s777610/connectly-full-stack"
+                  >
+                    Github
+                  </a>
+                </p>
+                <p className="lead mb-4">
+                  Here is my{" "}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://weichenghung.com/"
+                  >
+                    Personal Site
+                  </a>
+                </p>
               </div>
             </div>
           </div>
