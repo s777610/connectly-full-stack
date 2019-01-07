@@ -1,5 +1,5 @@
 # connectly-full-stack
-This application([Connectly](https://quiet-atoll-38277.herokuapp.com/login)) was mainly built by Node.js, React, Redux and MongoDB. The back-end was built by express, which is a light-weight framework of Node.js. The data is stored on MongoDB and hosted on mLab. The client-side of this application was built by React and Redux. I used create-react-app to set up my configuration and workflow. In addition, it uses redux-thunk as middleware for dispatching actions in order to make HTTP requests to express server properly.
+This application([Connectly](https://quiet-atoll-38277.herokuapp.com)) was mainly built by Node.js, React, Redux and MongoDB. The back-end was built by express, which is a light-weight framework of Node.js. The data is stored on MongoDB and hosted on mLab. The client-side of this application was built by React and Redux. I used create-react-app to set up my configuration and workflow. In addition, it uses redux-thunk as middleware for dispatching actions in order to make HTTP requests to express server properly.
 
 
 ## Functionality:
