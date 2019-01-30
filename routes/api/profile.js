@@ -109,38 +109,22 @@ router.post(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-    /*
-    const { skills, youtube, twitter, facebook, linkedin, instagram } = req.body;
+
+    const {
+      skills,
+      youtube,
+      twitter,
+      facebook,
+      linkedin,
+      instagram
+    } = req.body;
+
     const profileFields = {
       ...req.body,
       user: req.user.id,
-      skills: skills.split(','),
+      skills: skills.split(","),
       social: { youtube, twitter, facebook, linkedin, instagram }
-    };  
-    */
-
-    // Get fields
-    const profileFields = {};
-    profileFields.user = req.user.id;
-    if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.company) profileFields.company = req.body.company;
-    if (req.body.website) profileFields.website = req.body.website;
-    if (req.body.location) profileFields.location = req.body.location;
-    if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.status) profileFields.status = req.body.status;
-    if (req.body.githubusername)
-      profileFields.githubusername = req.body.githubusername;
-    // Skills - Spilt into array
-    if (typeof req.body.skills !== "undefined") {
-      profileFields.skills = req.body.skills.split(",");
-    }
-    // Social
-    profileFields.social = {};
-    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
-    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
-    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+    };
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
@@ -152,7 +136,6 @@ router.post(
         ).then(profile => res.json(profile));
       } else {
         // Create
-
         // Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
@@ -182,16 +165,26 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    const {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description
+    } = req.body;
+
     Profile.findOne({ user: req.user.id }).then(profile => {
       // or const newExp = {...req.body,}
       const newExp = {
-        title: req.body.title,
-        company: req.body.company,
-        location: req.body.location,
-        from: req.body.from,
-        to: req.body.to,
-        current: req.body.current,
-        description: req.body.description
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description
       };
 
       // Add to exp array
@@ -216,15 +209,25 @@ router.post(
       return res.status(400).json(errors);
     }
 
+    const {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description
+    } = req.body;
+
     Profile.findOne({ user: req.user.id }).then(profile => {
       const newEdu = {
-        school: req.body.school,
-        degree: req.body.degree,
-        fieldofstudy: req.body.fieldofstudy,
-        from: req.body.from,
-        to: req.body.to,
-        current: req.body.current,
-        description: req.body.description
+        school,
+        degree,
+        fieldofstudy,
+        from,
+        to,
+        current,
+        description
       };
 
       // Add to exp array
