@@ -27,22 +27,22 @@ router.post("/register", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
-  User.findOne({ email: req.body.email }).then(user => {
+  const { email, password, name } = req.body;
+  User.findOne({ email }).then(user => {
     if (user) {
       errors.email = "Email already exists";
       return res.status(400).json(errors);
     } else {
-      const avatar = gravatar.url(req.body.email, {
+      const avatar = gravatar.url(email, {
         s: "200", // size
         r: "pg", // rating
         d: "mm" // default
       });
       const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
+        name,
+        email,
         avatar,
-        password: req.body.password
+        password
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -68,11 +68,10 @@ router.post("/login", (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
 
   // Find user by email
-  User.findOne({ email: email }).then(user => {
+  User.findOne({ email }).then(user => {
     if (!user) {
       errors.email = "User not found";
       return res.status(404).json(errors);
